@@ -22,6 +22,7 @@
                         <th scope="col">Title</th>
                         <th scope="col">Slug</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Technology</th>
                         <th scope="col">Visible</th>
                         <th scope="col">Created</th>
                         <th scope="col">Updated</th>
@@ -34,6 +35,16 @@
                         <th class="align-middle" scope="row"><a style="text-transform: uppercase;" href="{{route('admin.projects.show', $project->id)}}">{{$project->title}}</a></th>
                         <td class="align-middle"><input type="text" disabled value='{{Str::slug(old('title', $project->title), '-')}}'></td>
                         <td class="align-middle text-center text-white"><span id="label" style="background-color: {{$project->type->color}}">{{$project->type?->label}}</span></td>
+
+                        <td class="align-middle text-center text-white">
+                          @forelse ($project->technologies as $technology)
+                          <span id="label" style="background-color: {{$technology->color}}">{{!! $technology->icon !!}}</span>
+                              
+                          @empty
+                              
+                          @endforelse
+                        </td>
+                        
                         <td class="align-middle text-center">
                           @if ($project->is_published)
                           <i class="fa-solid fa-toggle-on text-success fs-2"></i>
