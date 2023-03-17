@@ -21,14 +21,13 @@
                             <span id="label" class="text-white" style="background-color: {{$project->type->color}}">{{$project->type?->label}}</span>
                             <p class="mt-3">{{$project['description']}}</p>
                             <p>Status: <strong class="{{$project->is_published ? 'text-success' : 'text-danger'}}"> {{$project->is_published ? 'Public' : 'Not Public'}}</strong></p>
-                            <a class="text-primary" href="{{$project['project_url']}}">Go to Website</a>
-                            <div class="technologies d-flex m-auto mb-5">
+                            <div class="technologies d-flex m-auto mb-3">
                                 @forelse ($project->technologies as $technology)
-                                        <div class="text-center me-3" style="color: {{ $technology->color }}"><h4 class="mb-0">{!! $technology->icon !!}</h4></div>
+                                <div class="text-center me-3" style="color: {{ $technology->color }}"><h4 class="mb-0">{!! $technology->icon !!}</h4></div>
                                 @empty
-                    
                                 @endforelse
                             </div>
+                            <a class="text-primary" href="{{$project['project_url']}}">Go to Website</a>
                         </div>
                     </div>
                 </div>

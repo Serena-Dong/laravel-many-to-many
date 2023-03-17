@@ -40,6 +40,7 @@
                     <div class="mb-3 col-3 px-5 d-flex justify-content-center">
                         <img id="image_preview" class="img-fluid" src="{{ $project['image_url'] ? asset('storage/'.$project['image_url']) : 'https://marcolanci.it/utils/placeholder.jpg'}}" alt="">
                     </div>
+
                     <div class="mb-3 col-6 px-5">
                         <label class="text-start mb-2" for="type_id">Type</label>
                         <select class="form-control mb-3" name="type_id" id="type_id">
@@ -48,6 +49,22 @@
                                 <option @if(old('type_id', $project->type?->id) == $type->id) selected @endif value="{{$type->id}}">{{$type->label}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="mb-3 col-6 px-5">
+                        <label class="text-start mb-2" for="type_id">Technologies</label>
+                            @foreach ( $technologies as $technology )
+                                <div class="col-3 form-check text-start">
+                                    <input class="form-check-input" type="checkbox" value="{{ $technology->id }}" id="{{ $technology->id }}" name="technologies[]" @if (in_array(($technology->id), old('technologies', $project_technologies ?? []))) checked @endif >
+                                    <label class="form-check-label" for="{{ $technology->id }}">{{ $technology->name }}</label>
+                                </div>
+                            @endforeach
+                    </div>
+                    <div class="mb-3 col-6 px-5 d-flex">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="is_published" name='is_published' 
+                            @if (old('is_published', $project->is_published)) checked @endif>
+                            <label for="form-check-label" for="is_published">Visible</label>
+                        </div>
                     </div>
                 </div>
 

@@ -38,7 +38,7 @@
 
                         <td class="align-middle text-center text-white">
                           @forelse ($project->technologies as $technology)
-                          <span id="label" style="background-color: {{$technology->color}}">{{!! $technology->icon !!}}</span>
+                          <span id="label-tech" style="background-color: {{$technology->color}}">{!! $technology->icon !!}</span>
                               
                           @empty
                               
