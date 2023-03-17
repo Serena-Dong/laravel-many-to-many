@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Type;
 use App\Models\Project;
+use App\Models\Type;
+use App\Models\Technology;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -31,9 +33,10 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::orderBy('id')->get();
+        $technologies = Technology::orderBy('id')->get();
         $project = new Project();
 
-        return view('admin.projects.create', compact('project', 'types'));
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -78,8 +81,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('id')->get();
+        $technologies = Technology::orderBy('id')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
