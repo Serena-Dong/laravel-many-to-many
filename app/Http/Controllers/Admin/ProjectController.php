@@ -64,6 +64,9 @@ class ProjectController extends Controller
         $new_project->fill($data);
         $new_project->save();
 
+        if (Arr::exists($data, 'technologies')) $new_project->technologies()->attach($data['technologies']);
+
+
         return to_route('admin.projects.show', $new_project->id);
     }
 
@@ -82,8 +85,10 @@ class ProjectController extends Controller
     {
         $types = Type::orderBy('id')->get();
         $technologies = Technology::orderBy('id')->get();
+        $project_technologies = $project->technologies->pluck('id')->toArray();
 
-        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'project_technologies'));
     }
 
     /**
@@ -111,6 +116,10 @@ class ProjectController extends Controller
 
         $project->fill($data);
         $project->save();
+
+        if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
+        else if (count($project->technologies)) $project->technologies()->detach();
+
         return to_route('admin.projects.show', $project->id);
     }
 
